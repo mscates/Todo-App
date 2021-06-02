@@ -3,6 +3,8 @@ import UpdateInput from "./UpdateInput";
 import { todoRemoved, todoCompleted } from "../store/todos";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons'
 
 const Todo = ({ todo, className }) => {
   const dispatch = useDispatch();
@@ -63,14 +65,14 @@ const Todo = ({ todo, className }) => {
               Complete
             </button> */}
             {!todo.completed ? (
-              <button onClick={() => handleShowForm()} className="">
+              <FontAwesomeIcon icon={faEdit} onClick={() => handleShowForm()} className="">
                 Edit
-              </button>
+              </FontAwesomeIcon>
             ) : null}
 
-            <button onClick={() => handleDelete(todo.id)} className="">
+            <FontAwesomeIcon icon={faTrash} onClick={() => handleDelete(todo.id)} className="">
               Delete
-            </button>
+            </FontAwesomeIcon>
           </div>
         </div>
       </div>

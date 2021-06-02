@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Todo from "./Todo";
 import { useSelector } from "react-redux";
 import propTypes from "prop-types";

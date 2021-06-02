@@ -1,6 +1,8 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  font-family: "Raleway", sans-serif;
 }
 
 $base-color: hsl(217, 18%, 27%);
@@ -16,7 +18,10 @@ $cardDark: hsl(210, 30%, 58%);
 
 .title {
   color: $base-color;
+  font-weight: 700;
+  font-size: 2.5em;
   margin-bottom: 50px;
+  letter-spacing: 1.5px;
 }
 
 .main-container {
@@ -39,12 +44,38 @@ $cardDark: hsl(210, 30%, 58%);
 
 .add-todo {
   max-width: 500px;
-  width: 100%;
+  width: 75%;
   padding: 10px 25px;
+  border: none;
+  font-size: 14px;
+  margin-bottom: 30px;
 }
 
 .submit-todo {
   padding: 10px 25px;
+  width: 25%;
+  background-color: #d9d9d9;
+  color: #555;
+  text-align: center;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-weight: bold;
+  border: none;
+  margin-bottom: 30px;
+}
+.submit-todo:hover {
+  background-color: #bbb;
+  color: #fff;
+}
+.search-todo {
+  max-width: 400px;
+  width: 100%;
+  padding: 10px 25px;
+  border: none;
+  background-color: hsl(0, 0%, 92%);
+  font-size: 14px;
+  margin-bottom: 30px;
 }
 
 .todos-container {
@@ -54,11 +85,26 @@ $cardDark: hsl(210, 30%, 58%);
   display: flex;
   justify-content: space-between;
   padding: 10px 10px;
-  
 }
 .todo-actions {
   display: flex;
-  flex-direction: column;
+}
+
+.fa-edit,
+.fa-trash {
+  cursor: pointer;
+}
+.fa-edit:hover {
+  color: hsl(37, 90%, 51%);
+  transition: color 0.2s;
+}
+
+.fa-edit {
+  margin-right: 10px;
+}
+.fa-trash:hover {
+  color: hsl(2, 80%, 47%);
+  transition: color 0.2s;
 }
 .update-todo {
   align-self: center;

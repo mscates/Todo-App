@@ -1,4 +1,3 @@
-import background from "./images/hero-1.jpg";
 import React from "react";
 import "./App.scss";
 import Header from "./components/Header";
