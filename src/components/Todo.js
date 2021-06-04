@@ -3,8 +3,8 @@ import UpdateInput from "./UpdateInput";
 import { todoRemoved, todoCompleted } from "../store/todos";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
 
 const Todo = ({ todo, className }) => {
   const dispatch = useDispatch();
@@ -18,6 +18,10 @@ const Todo = ({ todo, className }) => {
   const handleShowForm = () => {
     setShowForm(true);
   };
+
+  const handleChange = () => {
+    handleComplete()
+  }
 
   useEffect(() => {
     dispatch(todoCompleted(updateComplete));
@@ -37,21 +41,17 @@ const Todo = ({ todo, className }) => {
   return (
     <>
       <div
-        className={`${
-          className % 2 === 0 ? "todo cardColorLight" : "todo cardColorDark"
-        }`}
+        className={`${className % 2 === 0 ? "todo cardEven" : "todo cardOdd"}`}
       >
-        {/* <p>Todo 1</p>
-
-        <p>
-          {todo.completed ? (
-            <span className="">flawless victory</span>
-          ) : (
-            <span className="">null</span>
-          )}
-        </p> */}
         <div className="todo-body">
           <li className="update-todo">
+            <input
+            className="checkbox"
+            type="checkbox"
+            name="complete"
+            checked={updateComplete.completed}
+            onChange={handleChange}
+            />
             {showForm ? (
               <UpdateInput setShowForm={setShowForm} todo={todo} />
             ) : (
@@ -61,16 +61,21 @@ const Todo = ({ todo, className }) => {
             )}
           </li>
           <div className="todo-actions">
-            {/* <button onClick={() => handleComplete()} className="">
-              Complete
-            </button> */}
             {!todo.completed ? (
-              <FontAwesomeIcon icon={faEdit} onClick={() => handleShowForm()} className="">
+              <FontAwesomeIcon
+                icon={faEdit}
+                onClick={() => handleShowForm()}
+                className=""
+              >
                 Edit
               </FontAwesomeIcon>
             ) : null}
 
-            <FontAwesomeIcon icon={faTrash} onClick={() => handleDelete(todo.id)} className="">
+            <FontAwesomeIcon
+              icon={faTrash}
+              onClick={() => handleDelete(todo.id)}
+              className=""
+            >
               Delete
             </FontAwesomeIcon>
           </div>

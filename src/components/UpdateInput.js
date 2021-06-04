@@ -1,6 +1,8 @@
 import React from "react";
 import useUpdateForm from "../components/Form/useUpdateForm";
 import PropTypes from "prop-types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPencilAlt, faWindowClose } from "@fortawesome/free-solid-svg-icons";
 
 const UpdateInput = ({ todo, setShowForm }) => {
   const { handleChange, handleSubmit, updateValues, handleClose } =
@@ -17,10 +19,12 @@ const UpdateInput = ({ todo, setShowForm }) => {
           value={updateValues.todo}
           onChange={handleChange}
         />
-        <button type="submit">Update</button>
+        {/* <FontAwesomeIcon icon={faPencilAlt} /> */}
+        <FontAwesomeIcon onClick={handleClose} icon={faWindowClose} />
+        {/* <button type="submit">Update</button>
         <button type="button" onClick={handleClose}>
           Cancel
-        </button>
+        </button> */}
       </form>
     </>
   );
