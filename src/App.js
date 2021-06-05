@@ -2,9 +2,9 @@ import React from "react";
 import "./App.scss";
 import Header from "./components/Header";
 import Input from "./components/Input";
-import configureStore from "./store/configureStore";
+import configStore from "./store/configureStore";
 import { Provider } from "react-redux";
-const store = configureStore();
+const store = configStore();
 
 function App() {
   return (

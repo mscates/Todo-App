@@ -2,7 +2,7 @@ import React from "react";
 import useUpdateForm from "../components/Form/useUpdateForm";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPencilAlt, faWindowClose } from "@fortawesome/free-solid-svg-icons";
+import {faWindowClose } from "@fortawesome/free-solid-svg-icons";
 
 const UpdateInput = ({ todo, setShowForm }) => {
   const { handleChange, handleSubmit, updateValues, handleClose } =

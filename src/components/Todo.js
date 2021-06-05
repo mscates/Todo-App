@@ -25,7 +25,7 @@ const Todo = ({ todo, className }) => {
 
   useEffect(() => {
     dispatch(todoCompleted(updateComplete));
-  }, [updateComplete.completed]);
+  }, [updateComplete.completed, updateComplete, dispatch]);
 
   const handleDelete = (id) => {
     dispatch(todoRemoved(id));
