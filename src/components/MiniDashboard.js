@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const MiniDashboard = ({ todos }) => {
   const findCompleted = () => {
@@ -13,6 +14,10 @@ const MiniDashboard = ({ todos }) => {
       </div>
     </>
   );
+};
+
+MiniDashboard.propTypes = {
+  todos: PropTypes.array.isRequired,
 };
 
 export default MiniDashboard;

@@ -1,29 +1,12 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { todoUpdated } from "../../store/todos";
+import { useContext } from "react";
+import { TodoContext } from "../../App";
 import PropTypes from "prop-types";
 
-const useUpdateForm = ({ todo, setShowForm }) => {
-  const dispatch = useDispatch();
-  const [updateValues, setUpdateValues] = useState({
-    todo: todo.todo,
-    id: todo.id,
-    showForm: todo.showForm,
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUpdateValues({
-      ...updateValues,
-      [name]: value,
-      showForm: false,
-    });
-  };
-  
-
+const useUpdateForm = ({ content, id, setShowForm }) => {
+  const { dispatch } = useContext(TodoContext);
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(todoUpdated(updateValues));
+    dispatch({ type: "UPDATE_TODO", payload: { id, content }})
     setShowForm(false);
   };
 
@@ -31,11 +14,11 @@ const useUpdateForm = ({ todo, setShowForm }) => {
     setShowForm(false);
   };
 
-  return { handleChange, updateValues, handleSubmit, handleClose };
+  return { handleSubmit, handleClose };
 };
 
 useUpdateForm.propTypes = {
-  todo: PropTypes.bool.isRequired,
+  content: PropTypes.bool.isRequired,
   setShowForm: PropTypes.func.isRequired,
 };
 

@@ -1,29 +1,23 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { todoAdded } from "../../store/todos";
+import { useState, useContext } from "react";
+import { TodoContext } from "../../App";
 
 const useForm = () => {
-  const dispatch = useDispatch();
-  const [value, setValue] = useState({
-    todo: "",
-  });
-
+  const { dispatch } = useContext(TodoContext);
+  const [content, setContent] = useState("");
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setValue({
-      [name]: value,
-    });
+    setContent(e.target.value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (value.todo !== "") {
-      dispatch(todoAdded(value));
-      setValue({ todo: "" });
+    if (content !== "") {
+      const todo = { content, completed: false, id: Date.now() };
+      dispatch({ type: "ADD_TODO", payload: { todo } });
+      setContent("");
     }
   };
 
-  return { handleChange, value, handleSubmit };
+  return { handleChange, content, handleSubmit };
 };
 
 export default useForm;

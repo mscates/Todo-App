@@ -1,41 +1,30 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import UpdateInput from "./UpdateInput";
-import { todoRemoved, todoCompleted } from "../store/todos";
-import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
+import { TodoContext } from "../App";
 
-const Todo = ({ todo, className }) => {
-  const dispatch = useDispatch();
+const Todo = ({ content, id, className }) => {
+  const { dispatch } = useContext(TodoContext);
   const [showForm, setShowForm] = useState(false);
-  const [updateComplete, setUpdateComplete] = useState({
-    todo: todo.todo,
-    id: todo.id,
-    completed: todo.completed,
-  });
+  const [todoCompleted, setTodoCompleted] = useState(false);
 
   const handleShowForm = () => {
     setShowForm(true);
   };
 
-  const handleChange = () => {
-    handleComplete()
-  }
+  const handleChange = (e) => {
+    setTodoCompleted(e.target.checked);
+    handleComplete();
+  };
 
-  useEffect(() => {
-    dispatch(todoCompleted(updateComplete));
-  }, [updateComplete.completed, updateComplete, dispatch]);
-
-  const handleDelete = (id) => {
-    dispatch(todoRemoved(id));
+  const handleDelete = () => {
+    dispatch({ type: "DELETE_TODO", payload: { id } });
   };
 
   const handleComplete = () => {
-    setUpdateComplete((prevState) => ({
-      ...prevState,
-      completed: !prevState.completed,
-    }));
+    dispatch({ type: "COMPLETE_TODO", payload: { id, todoCompleted } });
   };
 
   return (
@@ -46,22 +35,25 @@ const Todo = ({ todo, className }) => {
         <div className="todo-body">
           <li className="update-todo">
             <input
-            className="checkbox"
-            type="checkbox"
-            name="complete"
-            checked={updateComplete.completed}
-            onChange={handleChange}
+              className="checkbox"
+              type="checkbox"
+              name="completed"
+              value={todoCompleted}
+              checked={todoCompleted}
+              onChange={handleChange}
             />
             {showForm ? (
-              <UpdateInput setShowForm={setShowForm} todo={todo} />
+              <UpdateInput
+                content={content}
+                id={id}
+                setShowForm={setShowForm}
+              />
             ) : (
-              <span className={todo.completed ? "strike" : null}>
-                {todo.todo}
-              </span>
+              <span className={todoCompleted ? "strike" : null}>{content}</span>
             )}
           </li>
           <div className="todo-actions">
-            {!todo.completed ? (
+            {!todoCompleted ? (
               <FontAwesomeIcon
                 icon={faEdit}
                 onClick={() => handleShowForm()}
@@ -71,11 +63,7 @@ const Todo = ({ todo, className }) => {
               </FontAwesomeIcon>
             ) : null}
 
-            <FontAwesomeIcon
-              icon={faTrash}
-              onClick={() => handleDelete(todo.id)}
-              className=""
-            >
+            <FontAwesomeIcon icon={faTrash} onClick={handleDelete} className="">
               Delete
             </FontAwesomeIcon>
           </div>
@@ -86,7 +74,8 @@ const Todo = ({ todo, className }) => {
 };
 
 Todo.propTypes = {
-  todo: PropTypes.object.isRequired,
+  content: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   className: PropTypes.number.isRequired,
 };
 

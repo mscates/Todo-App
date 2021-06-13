@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import useForm from "../components/Form/useForm";
 
 
 const Input = () => {
-  const { handleSubmit, value, handleChange } = useForm();
+  const { handleSubmit, content, handleChange } = useForm();
   
   return (
     <>
@@ -12,8 +12,8 @@ const Input = () => {
         <input
           className="add-todo todo"
           type="text"
-          value={value.todo}
-          name="todo"
+          value={content}
+          name="content"
           onChange={handleChange}
           placeholder="Add Todo"
         />

@@ -1,25 +1,34 @@
 import React from "react";
 import Todo from "./Todo";
-import { useSelector } from "react-redux";
-import propTypes from "prop-types";
+import PropTypes from "prop-types";
 
-const Todos = ({ newTodos }) => {
-  const data = useSelector((state) => state);
-  const todos = data.map((item, index) => (
-    <Todo className={index} key={item.id} todo={item} />
-  ));
-  const newFilteredTodos = newTodos.map((item, index) => (
-    <Todo className={index} key={item.id} todo={item} />
-  ));
+const Todos = ({ todos, searchTerm }) => {
+  const filterTodos = (todos, searchTerm) => {
+    return todos.filter((todo) => todo.content.indexOf(searchTerm) !== -1);
+  };
+
+  const renderTodos = (arr, searchTerm) => {
+    if (searchTerm) {
+      const filteredTodos = filterTodos(arr, searchTerm).map((item, index) => (
+        <Todo className={index} key={item.id} {...item} />
+      ));
+      return filteredTodos;
+    }
+    return arr.map((item, index) => (
+      <Todo className={index} key={item.id} {...item} />
+    ));
+  };
+
   return (
     <div className="todos-container">
-      <ul>{newFilteredTodos ? newFilteredTodos : todos}</ul>
+      <ul>{renderTodos(todos, searchTerm)}</ul>
     </div>
   );
 };
 
 Todos.propTypes = {
-  newTodos: propTypes.array.isRequired,
+  todos: PropTypes.array.isRequired,
+  searchTerm: PropTypes.string.isRequired
 };
 
 export default Todos;
