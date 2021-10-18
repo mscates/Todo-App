@@ -9,6 +9,7 @@ import TodoReducer from './reducer'
 export const TodoContext = createContext({
   todos: [],
 });
+export const SearchContext = createContext()
 
 function App() {
   
@@ -21,6 +22,7 @@ function App() {
   
   return (
     <TodoContext.Provider value={{state, dispatch}}>
+    <SearchContext.Provider value={{searchTerm, setSearchTerm}}>
       <div className="hero">
         <div className="main-container">
           <Header title="Todo List App" />
@@ -30,6 +32,7 @@ function App() {
           <Todos todos={state.todos} searchTerm={searchTerm} />
         </div>
       </div>
+      </SearchContext.Provider>
     </TodoContext.Provider>
   );
 }

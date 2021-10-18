@@ -1,13 +1,15 @@
 import { useContext } from "react";
-import { TodoContext } from "../../App";
+import { TodoContext, SearchContext } from "../../App";
 import PropTypes from "prop-types";
 
 const useUpdateForm = ({ content, id, setShowForm }) => {
   const { dispatch } = useContext(TodoContext);
+  const { setSearchTerm } = useContext(SearchContext)
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch({ type: "UPDATE_TODO", payload: { id, content }})
     setShowForm(false);
+    setSearchTerm("")
   };
 
   const handleClose = () => {
